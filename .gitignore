@@ -1,0 +1,15 @@
+# R session files
+.Rhistory
+.RData
+.Ruserdata
+
+# RStudio project files
+.Rproj.user/
+
+# Package/library stuff
+renv/library/
+renv/python/
+
+# OS files
+.DS_Store
+Thumbs.db
