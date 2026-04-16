@@ -81,12 +81,12 @@ run_DE <- function(dds) {
 
 
 
-counts_matrix_hs <- load_matrix("counts_noMT.txt")
+counts_matrix_hs <- load_matrix("data/counts_noMT.txt")
 condition_hs <- ifelse(grepl("Ctrl", colnames(counts_matrix_hs)), "Ctrl", ifelse(grepl("EA_", colnames(counts_matrix_hs)), "EA", "HCM"))
 counts_matrix_hs <- rename_matrix_hs(counts_matrix_hs, condition_hs)
 
 remove_idx_hs <- which(colnames(counts_matrix_hs) %in% c("HCM_5", "HCM_10"))
-# remove_idx_hs <- c(remove_idx_hs, which(colnames(counts_matrix_hs) %in% c("Ctrl_1", "Ctrl_2", "Ctrl_3", "Ctrl_4", "Ctrl_5")))
+remove_idx_hs <- c(remove_idx_hs, which(colnames(counts_matrix_hs) %in% c("Ctrl_1", "Ctrl_2", "Ctrl_3", "Ctrl_4", "Ctrl_5")))
 counts_matrix_hs <- counts_matrix_hs[, -remove_idx_hs, drop = FALSE]
 condition_hs <- condition_hs[-remove_idx_hs]
 
@@ -98,7 +98,7 @@ counts_matrix_hs <- log2(counts_matrix_hs + 1)
 # View(counts_matrix_hs)
 
 
-counts_matrix_ss <- load_matrix("pig_counts.txt")
+counts_matrix_ss <- load_matrix("data/pig_counts.txt")
 condition_ss <- ifelse(grepl("Ctrl", colnames(counts_matrix_ss)), "Sham", "Band")
 counts_matrix_ss <- rename_matrix_ss(counts_matrix_ss, condition_ss)
 
@@ -108,8 +108,8 @@ condition_ss <- condition_ss[-remove_idx_ss]
 
 counts_matrix_ss <- counts_matrix_ss[rowSums(counts_matrix_ss  > 10) >= 4, ]
 dds_ss <- create_dds(counts_matrix_ss, condition_ss)
-counts_matrix_ss <- norm_matrix(dds_ss)
-counts_matrix_ss <- log2(counts_matrix_ss + 1)
+# counts_matrix_ss <- norm_matrix(dds_ss)
+# counts_matrix_ss <- log2(counts_matrix_ss + 1)
 # counts_matrix_ss <- vst_matrix(counts_matrix_ss, dds_ss)
 # View(counts_matrix_ss)
 

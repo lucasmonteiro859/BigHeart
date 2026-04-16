@@ -12,6 +12,7 @@ make_df <- function(matrix) {
 }
 
 plot_density <- function(df_plot) { 
+#df_plot <- df_plot[df_plot$Counts != 0, ]
 ggplot(df_plot, aes(x = Counts, color = Sample)) +
   geom_density(size = 1, alpha = 0.6) +
   labs(title = paste("Density of log2(counts + 1) for samples"),
@@ -40,8 +41,10 @@ plot_PCA  <- function(matrix, condition) {
     Sample = rownames(pca_input),
     PC1 = pca_results$x[, "PC1"],
     PC2 = pca_results$x[, "PC2"],
-    Group = condition  # make sure names match samples
-  )
+    Group = condition,
+    #Sex = c("F", "F", "F", "M", "M", "F", "M", "F", "F", "M", "F", "M", "F", "F", "F", "F", "M", "F", "M", "M", "M", "F", "F", "M")
+    #Sex = c("F", "M", "F", "F", "M", "F", "M", "F", "F", "F", "F", "M", "F", "M", "M", "M", "F", "F", "M")
+    )
   
   plt <- ggplot(pca_df, aes(x = PC1, y = PC2, color = Group, label = Sample)) +
     geom_point(size = 3) +
